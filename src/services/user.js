@@ -1,6 +1,6 @@
 import model from '../models/index';
 
-const {user} =model;
+const {users} =model;
 
 class UserService {
     getUser =async(email)=>{

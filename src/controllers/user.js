@@ -4,18 +4,25 @@ import sequelize from 'sequelize';
 import {brotliDecompressSync} from 'zlib';
 import UserService from '../services/user';
 
+const {users} = models
+
 //須改未改
 class UserConstroller{
     //create
     getUser =async(req,res) =>{
-        const {email} =req.query;
-        const user = await users.findAll();
-        const respone = _.map(user,(o)=>({
-            ...o.dataValues,
-            vip:true,
-        }));
+        const {email} =req.body;
+        const user = await users.findOne({
+            where:{
+                email
+            }
+        });
 
-         res.status(200).json({respone})
+        // const respone = _.map(user,(o)=>({
+        //     ...o.dataValues,
+        //     vip:true,
+        // }));
+
+         res.status(200).json({user})
     };
 
     //search
