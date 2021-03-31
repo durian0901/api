@@ -1,7 +1,6 @@
 //中介層
 //掌管登入情況
 //import user from '../services/user';
-import user from '../services/user';
 import passport from './passport';
 import jwt from 'jsonwebtoken';
 
@@ -16,6 +15,7 @@ class UserMiddleware{
         }
 
     //驗證
+    //middlewares/passport.js  passport.use
     Authenticate =(req,res,next)=>{
         //passport的驗證方法    'haha'  
         passport.authenticate('local',{session: false}, async(err,user)=>{

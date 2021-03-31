@@ -5,7 +5,8 @@ import UserService from '../services/user';
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt'
 
 require('dotenv').config();
-//jwt options
+
+//jwt options 金鑰
 const options ={
     secretOrKey: process.env.APP_KEY,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
@@ -13,7 +14,8 @@ const options ={
 const caleExpireTime =(payload)=>{
     const {expireTime}=payload;
     const currentTime=new Date().getTime();
-
+    //依情況修改
+    //最近登入的時間大於到期時間
     if(currentTime>expireTime){
         return false;
     }
@@ -22,10 +24,12 @@ const caleExpireTime =(payload)=>{
 
 
 //passport.use('haha',new LocalStrategy)  ---------換名稱對應user
+
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passportField:'password',  //還沒遇到
     //驗證  
+    //middlewares/user.js  Authenticate
 },(async(email,password,cd) =>{
     const user=await UserService.getUser(email);
     if(!user){

@@ -1,14 +1,12 @@
 import models from "../models/index";
 import _ from 'lodash';
-import sequelize from 'sequelize';
-import {brotliDecompressSync} from 'zlib';
-import UserService from '../services/user';
+
 
 const {users} = models
 
 //須改未改
 class UserConstroller{
-    //create
+    //從資料庫抓資料
     getUser =async(req,res) =>{
         const {email} =req.body;
         const user = await users.findOne({
@@ -39,6 +37,8 @@ class UserConstroller{
     //     res.status(200).json({user});
     // }
 
+    //create
+
     postUser = async(req,res) =>{
         const{body}=req;
         const{email,password} = body
@@ -48,6 +48,7 @@ class UserConstroller{
         });
         res.status(200).json({user});
     };
+
     //Delete
 
     postDelete= async(req,res)=>{
@@ -62,8 +63,8 @@ class UserConstroller{
         res.status(200).json({user});
     };
 
+    
     //update
-
 
     patchUpdate= async(req,res)=>{
         const{body}=req
